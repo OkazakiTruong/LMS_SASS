@@ -24,8 +24,10 @@
             <th>STT</th>
             <th>Tên tài khoản</th>
             <th>Họ tên</th>
+            <th>Ngày sinh</th>
             <th>Mật Khẩu</th>
             <th>Email</th>
+            <th>Sdt</th>
             <th>Địa chỉ</th>
             <th>Vai trò</th>
             <th>Chức năng</th>
@@ -38,8 +40,10 @@
                 <td>@(Model.IndexOf(item) + 1)</td>
                 <td>@item.Username</td>
                 <td>@item.Name</td>
+                <td>@item.DOB.ToString("dd/MM/yyyy")</td>
                 <td>@item.Password</td>
                 <td>@item.Email</td>
+                <td>@item.Phone</td>
                 <td>@item.Address</td>
                 <td>@item.Role</td>
                 <td class="btn-wrapper"><a href="/admin/accounts/edit-an-account/@item.Id" class='btn btn-warning'>Sửa</a>  <button href='#' class='btn btn-danger btn-delete' data-item-id=@item.Id>Xóa</button></td>
@@ -95,7 +99,6 @@
     function searchUsers() {
         var searchQuery = $('#searchInput').val();
      
-      
         $.ajax({
             url: '/admin/search',
             type: 'GET',
@@ -103,6 +106,27 @@
             success: function (data) {
                 // Cập nhật nội dung của bảng với kết quả tìm kiếm
                 $('#show_data').html(data);
+                const buttonDeletes = document.querySelectorAll(".btn.btn-delete");
+
+                //xử lý sự kiện click nút xóa
+                buttonDeletes.forEach((buttonDelete) => {
+                    buttonDelete.addEventListener("click", () => {
+                        if (confirm("Bạn có chắc chắn xóa user này không ?")) {
+                            $.ajax({
+                                url: '/admin/accounts/' + buttonDelete.dataset.itemId,
+                                type: 'DELETE',
+                                success: function (result) {
+                                    // Làm gì đó sau khi xóa thành công, ví dụ, làm mới danh sách tài khoản
+                                    location.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    // Xử lý lỗi
+                                    alert("Xóa không thành công");
+                                }
+                            });
+                        }
+                    })
+                })
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
@@ -124,10 +148,6 @@
     buttonDeletes.forEach((buttonDelete) => {
        buttonDelete.addEventListener("click",()=>{
            if (confirm("Bạn có chắc chắn xóa user này không ?")) {
-                if(@userId == buttonDelete.dataset.itemId){
-                    alert("bạn không thể xóa tài khoản đang sử dụng!!");
-                    return;
-                }
                 $.ajax({
                     url: '/admin/accounts/' + buttonDelete.dataset.itemId,
                     type: 'DELETE',

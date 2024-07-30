@@ -6,10 +6,12 @@
         <td>@(Model.IndexOf(item) + 1)</td>
         <td>@item.Username</td>
         <td>@item.Name</td>
+        <td>@item.DOB.ToString("dd/MM/yyyy")</td>
         <td>@item.Password</td>
         <td>@item.Email</td>
+        <td>@item.Phone</td>
         <td>@item.Address</td>
         <td>@item.Role</td>
-        <td><a href='#' class='btn btn-warning'>Sửa</a> | <a href='#' class='btn btn-danger'>Xóa</a></td>
+        <td class="btn-wrapper"><a href="/admin/accounts/edit-an-account/@item.Id" class='btn btn-warning'>Sửa</a>  <button href='#' class='btn btn-danger btn-delete' data-item-id=@item.Id>Xóa</button></td>
     </tr>
 }

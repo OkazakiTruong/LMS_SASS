@@ -91,6 +91,7 @@ public class AdminController : BaseController {
             // Cập nhật thông tin người dùng
             existingUser.Username = user.Username;
             existingUser.Name = user.Name;
+            existingUser.Password = user.Password;
             existingUser.DOB = user.DOB;
             existingUser.Phone = user.Phone;
             existingUser.Email = user.Email;
