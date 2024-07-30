@@ -1,0 +1,105 @@
+@model UserModel
+
+@{
+	Layout = "_Login";
+	ViewData["Title"] = "Tạo Tài Khoản";
+	ViewData["Description"] = "Nhập các thông tin sau để tiến hành đăng kí tài khoản mới vào hệ thống";
+}
+
+<form asp-action="PerformRegister" asp-controller="Login">
+	<div class="input-group has-validation mb-3">
+		<span class="input-group-text">
+			<i class="fa-solid fa-at"></i>
+		</span>
+		
+		<div class="form-floating">
+			<input type="text" asp-for="Username" name="Username" id="form-input-username" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Username)" required>
+			<label for="form-input-username">@Html.DisplayNameFor(model => model.Username)</label>
+		</div>
+		
+		<span asp-validation-for="Username"></span>
+	</div>
+
+	<div class="input-group has-validation mb-3">
+		<span class="input-group-text">
+			<i class="fa-solid fa-key"></i>
+		</span>
+
+		<div class="form-floating">
+			<input type="password" asp-for="Password" name="password" id="form-input-password" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Password)" required>
+			<label for="form-input-password">@Html.DisplayNameFor(model => model.Password)</label>
+		</div>
+
+		<span asp-validation-for="Password"></span>
+	</div>
+
+	<div class="input-group has-validation mb-3">
+		<span class="input-group-text">
+			<i class="fa-solid fa-signature"></i>
+		</span>
+		
+		<div class="form-floating">
+			<input type="text" asp-for="Name" name="Name" id="form-input-name" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Name)" required>
+			<label for="form-input-name">@Html.DisplayNameFor(model => model.Name)</label>
+		</div>
+		
+		<span asp-validation-for="Name"></span>
+	</div>
+
+	<div class="input-group has-validation mb-3">
+		<span class="input-group-text">
+			<i class="fa-solid fa-calendar-days"></i>
+		</span>
+		
+		<div class="form-floating">
+			<input type="date" asp-for="DOB" name="DOB" id="form-input-name" class="form-control" placeholder="@Html.DisplayNameFor(model => model.DOB)" required>
+			<label for="form-input-name">@Html.DisplayNameFor(model => model.DOB)</label>
+		</div>
+		
+		<span asp-validation-for="DOB"></span>
+	</div>
+
+	<div class="input-group has-validation mb-3">
+		<span class="input-group-text">
+			<i class="fa-solid fa-phone"></i>
+		</span>
+		
+		<div class="form-floating">
+			<input type="tel" asp-for="Phone" name="Phone" id="form-input-name" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Phone)" required>
+			<label for="form-input-name">@Html.DisplayNameFor(model => model.Phone)</label>
+		</div>
+		
+		<span asp-validation-for="Phone"></span>
+	</div>
+
+	<div class="input-group has-validation mb-3">
+		<span class="input-group-text">
+			<i class="fa-solid fa-envelope"></i>
+		</span>
+		
+		<div class="form-floating">
+			<input type="email" asp-for="Email" name="Email" id="form-input-name" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Email)" required>
+			<label for="form-input-name">@Html.DisplayNameFor(model => model.Email)</label>
+		</div>
+		
+		<span asp-validation-for="Email"></span>
+	</div>
+
+	<div class="input-group has-validation mb-3">
+		<span class="input-group-text">
+			<i class="fa-solid fa-location-dot"></i>
+		</span>
+		
+		<div class="form-floating">
+			<input type="text" asp-for="Address" name="Address" id="form-input-name" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Address)" required>
+			<label for="form-input-name">@Html.DisplayNameFor(model => model.Address)</label>
+		</div>
+		
+		<span asp-validation-for="Address"></span>
+	</div>
+
+	<div class="form-actions mt-5">
+		<a asp-action="LoginPage" asp-controller="Login" class="btn btn-link">Quay lại đăng nhập</a>
+		<button type="submit" class="btn btn-primary">Tạo tài khoản</button>
+	</div>
+</form>

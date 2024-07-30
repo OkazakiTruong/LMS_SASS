@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    UserModel userModel = ViewBag.User;
+}
+@model LMS_SASS.Models.UserModel
+
+<table>
+    <tr>
+        <th colspan="2">
+            <h1>Thông tin cá nhân</h1>
+        </th>
+        <th>
+            @if (Model.Id == userModel.Id)
+            {
+                <a asp-controller="Profile" asp-action="Edit" asp-route-id="@userModel.Id">                   
+                    <input type="button" class="btn btn-primary" value="Chỉnh sửa" />                    
+                </a>
+            }
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <p><strong>Username:</strong> @Model.Username</p>
+            <p><strong>Name:</strong> @Model.Name</p>
+            <p><strong>Date of Birth:</strong> @Model.DOB</p>
+            <p><strong>Phone:</strong> @Model.Phone</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Address:</strong> @Model.Address</p>
+            <p><strong>Role:</strong> @Model.Role</p>
+            <p><strong>Created:</strong> @Model.Created</p>
+        </td>
+    </tr>
+</table>
+
+<style>
+    /* Định dạng cho bảng */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    /* Định dạng cho tiêu đề của bảng */
+    th {
+        background-color: #f2f2f2;
+        text-align: left;
+        padding: 10px;
+    }
+
+    /* Định dạng cho ô thông tin */
+    td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Định dạng cho nút chỉnh sửa */
+    input[type="button"] {
+        background-color: #0d6efd;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    /* Định dạng cho tiêu đề h1 */
+    h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    /* Định dạng cho các mục thông tin cá nhân */
+    p {
+        margin: 20px;
+        font-size: 16px;
+    }
+</style>
+

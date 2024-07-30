@@ -1,0 +1,75 @@
+@{
+  ViewData["Title"] = "Thêm Bài tập";
+}
+
+<div class="container">
+    <div class="page-header">
+        <h2 class="title">@ViewData["Title"]</h2>
+
+        <span class="actions"></span>
+    </div>
+
+	<div class="page-content">
+    <form id="createAssignmentForm" method="post">
+      <div class="input-group has-validation mb-3">
+        <span class="input-group-text">
+          <i class="fa-solid fa-key"></i>
+        </span>
+
+        <div class="form-floating">
+          <input type="text" name="name" id="form-input-name" class="form-control" placeholder="Tên hoạt động" required>
+          <label for="form-input-name">Tên hoạt động</label>
+        </div>
+        <span></span>
+      </div>
+      <div class="input-group has-validation mb-3">
+        <span class="input-group-text">
+          <i class="fa-solid fa-key"></i>
+        </span>
+
+        <div class="form-floating">
+          <input type="text" name="description" id="form-input-description" class="form-control" placeholder="Mô tả" required>
+          <label for="form-input-url">Mô tả</label>
+        </div>
+        <span></span>
+      </div>
+      <div class="input-group has-validation mb-3">
+        <span class="input-group-text">
+          <i class="fa-solid fa-key"></i>
+        </span>
+
+        <div class="form-floating">
+          <input type="number" name="passing-grade" id="form-input-passing-grade" class="form-control" placeholder="Điểm tối thiểu" required>
+          <label for="form-input-url">Điểm tối thiểu</label>
+        </div>
+        <span></span>
+      </div>
+      <div class="input-group has-validation mb-3">
+        <span class="input-group-text">
+          <i class="fa-solid fa-key"></i>
+        </span>
+
+        <div class="form-floating">
+          <input type="datetime-local" placeholder="Ngày băt đầu" name="start-date" id="form-input-start-date" class="form-control" required>
+          <label for="form-input-start-date">Ngày băt đầu</label>
+        </div>
+        <span></span>
+      </div>
+      <div class="input-group has-validation mb-3">
+        <span class="input-group-text">
+          <i class="fa-solid fa-key"></i>
+        </span>
+
+        <div class="form-floating">
+          <input type="datetime-local" name="end-date" id="form-input-end-date" placeholder="Ngày kết thúc" class="form-control"  required>
+          <label for="form-input-end-date">Ngày kết thúc</label>
+        </div>
+        <span></span>
+      </div>
+      <input type="hidden" name="CourseId" id="form-input-course-id" value="@ViewBag.CourseId" required />
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript" src="~/js/createAssignmentActivity.js"></script>

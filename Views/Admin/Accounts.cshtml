@@ -1,0 +1,147 @@
+@model List<LMS_SASS.Models.UserModel>
+@{
+    ViewData["Title"] = "Quản Lý Tài Khoản";
+    var userId = ViewBag.UserId;
+}
+
+<h2>Danh sách tài khoản</h2>
+<div class="row" style="margin-bottom:15px;">
+    <div class="col-md-12">
+        <a asp-action="AddAnAccount"  asp-active-route class="btn btn-primary">Thêm mới</a>
+    </div>
+</div>
+<div class="row" style="margin-bottom:15px;">
+    <div class="col-md-6">
+        <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm...">
+    </div>
+    <div class="col-md-6">
+        <button class="btn btn-primary" onclick="searchUsers()">Tìm kiếm</button>
+    </div>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên tài khoản</th>
+            <th>Họ tên</th>
+            <th>Mật Khẩu</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Vai trò</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody id="show_data">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(Model.IndexOf(item) + 1)</td>
+                <td>@item.Username</td>
+                <td>@item.Name</td>
+                <td>@item.Password</td>
+                <td>@item.Email</td>
+                <td>@item.Address</td>
+                <td>@item.Role</td>
+                <td class="btn-wrapper"><a href="/admin/accounts/edit-an-account/@item.Id" class='btn btn-warning'>Sửa</a>  <button href='#' class='btn btn-danger btn-delete' data-item-id=@item.Id>Xóa</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Chỉnh sửa người dùng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form để chỉnh sửa thông tin người dùng -->
+                <form id="editUserForm">
+                    <div class="form-group">
+                        <label for="editUsername">Tên tài khoản</label>
+                        <input type="text" class="form-control" id="editUsername" name="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editName">Họ tên</label>
+                        <input type="text" class="form-control" id="editName" name="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAddress">Địa chỉ</label>
+                        <input type="text" class="form-control" id="editAddress" name="Address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editRole">Vai trò</label>
+                        <select class="form-control" id="editRole" name="Role">
+                            <option value="user">Người dùng</option>
+                            <option value="teacher">Giáo viên</option>
+                            <option value="admin">Quản trị viên</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchUsers() {
+        var searchQuery = $('#searchInput').val();
+     
+      
+        $.ajax({
+            url: '/admin/search',
+            type: 'GET',
+            data: { query: searchQuery },
+            success: function (data) {
+                // Cập nhật nội dung của bảng với kết quả tìm kiếm
+                $('#show_data').html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                alert("Đã xảy ra lỗi khi tìm kiếm người dùng.");
+            }
+        });
+    }
+
+    var searchQuery = document.querySelector('#searchInput');
+    searchQuery.addEventListener("keyup", (e) => {
+        if (e.target.value === "") {
+          window.location.reload()
+        }
+    })
+
+    const buttonDeletes = document.querySelectorAll(".btn.btn-delete");
+
+    //xử lý sự kiện click nút xóa
+    buttonDeletes.forEach((buttonDelete) => {
+       buttonDelete.addEventListener("click",()=>{
+           if (confirm("Bạn có chắc chắn xóa user này không ?")) {
+                if(@userId == buttonDelete.dataset.itemId){
+                    alert("bạn không thể xóa tài khoản đang sử dụng!!");
+                    return;
+                }
+                $.ajax({
+                    url: '/admin/accounts/' + buttonDelete.dataset.itemId,
+                    type: 'DELETE',
+                    success: function (result) {
+                        // Làm gì đó sau khi xóa thành công, ví dụ, làm mới danh sách tài khoản
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        // Xử lý lỗi
+                        alert("Xóa không thành công");
+                    }
+                });
+           }
+       })
+    })
+  
+</script>

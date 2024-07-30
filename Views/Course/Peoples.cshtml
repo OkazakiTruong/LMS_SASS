@@ -1,0 +1,143 @@
+@model CoursePeoplesModel
+
+@{
+	ViewData["Title"] = "Mọi Người: " + Model.Course.Name;
+	ViewBag.Course = Model.Course;
+}
+
+<div class="container">
+	@{
+		await Html.RenderPartialAsync("Header");
+	}
+
+    <div class="page-content">
+		<div class="course-user-group">
+			<div class="header">
+				<h2>Giáo viên</h2>
+
+				<span class="actions">
+					<a class="btn btn-outline-secondary"
+						data-bs-toggle="modal"
+						data-bs-target="#enroll-user-modal"
+						data-role="teacher"
+						data-course-id="@Model.Course.Id">
+
+						<i class="fa-solid fa-user-plus"></i>
+					</a>
+				</span>
+			</div>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Họ Tên</th>
+						<th>Email</th>
+						<th>SĐT</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var item in Model.CourseUsers) {
+						if (item.Role != CourseUserModel.ROLE_TEACHER)
+							continue;
+
+						var imageUrl = Url.Action("Image", "User", new { id = item.User?.Id });
+
+						<tr>
+							<td>
+								<span class="user-info">
+									<img src="@imageUrl" class="user-image" />
+									<span class="user-name">@item.User?.Name</span>
+								</span>
+							</td>
+
+							<td>@item.User?.Email</td>
+							<td>@item.User?.Phone</td>
+							<td></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+		<div class="course-user-group mt-4">
+			<div class="header">
+				<h2>Sinh viên</h2>
+
+				<span class="actions">
+					<a class="btn btn-outline-secondary"
+						data-bs-toggle="modal"
+						data-bs-target="#enroll-user-modal"
+						data-role="student"
+						data-course-id="@Model.Course.Id">
+
+						<i class="fa-solid fa-user-plus"></i>
+					</a>
+				</span>
+			</div>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Họ Tên</th>
+						<th>Email</th>
+						<th>SĐT</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var item in Model.CourseUsers) {
+						if (item.Role != CourseUserModel.ROLE_STUDENT)
+							continue;
+
+						var imageUrl = Url.Action("Image", "User", new { id = item.User?.Id });
+
+						<tr>
+							<td>
+								<span class="user-info">
+									<img src="@imageUrl" class="user-image" />
+									<span class="user-name">@item.User?.Name</span>
+								</span>
+							</td>
+
+							<td>@item.User?.Email</td>
+							<td>@item.User?.Phone</td>
+							<td></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+		<div class="modal fade" id="enroll-user-modal" tabindex="-1" role="dialog" aria-labelledby="enroll-user-modal-label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="enroll-user-modal-label">Ghi danh người dùng vào khóa học</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="enroll-user-select" class="col-form-label">Người dùng:</label>
+								<select class="form-control" id="enroll-user-select">
+
+								</select>
+							</div>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+						<button type="button" class="btn btn-primary" id="enroll-confirm">Xác Nhận</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/enroll.js"></script>

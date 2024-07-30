@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CourseModel>
+
+@{
+    ViewData["Title"] = "Trang Chủ";
+    UserModel user = ViewBag.User;
+}
+
+<div class="container">
+    <div class="page-header">
+        <h2 class="title">Các Khóa Học</h2>
+
+        <span class="actions">
+            <a asp-action="SelfEnrollCourseView" asp-controller="Course" asp-active-route class="btn btn-outline-primary">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Tham Gia Khóa Học</span>
+            </a>
+
+            @if (user.Role == UserModel.ROLE_TEACHER || user.Role == UserModel.ROLE_ADMIN) {
+                <a asp-action="CreateCourseView" asp-controller="Course" asp-active-route class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Tạo Khóa Học</span>
+                </a>
+            }
+        </span>
+    </div>
+
+    <div class="page-content">
+        <div class="course-grid">
+            @foreach (var item in Model) {
+                <a asp-action="ViewCourse" asp-controller="Course" asp-route-id="@item.Id" class="course-card">
+                    <div class="card-img"></div>
+
+                    <div class="card-body">
+                        <div class="name">@item.Name</div>
+                        <div class="code">@item.Code</div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>

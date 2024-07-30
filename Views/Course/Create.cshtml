@@ -1,0 +1,52 @@
+@model CourseModel;
+
+@{
+    ViewData["Title"] = "Trang Chủ";
+    UserModel user = ViewBag.User;
+}
+
+<div class="container">
+    <div class="page-header">
+        <h2 class="title">Tạo Khóa Học Mới</h2>
+
+        <span class="actions"></span>
+    </div>
+
+	<div class="page-content">
+		<form class="row g-3" asp-action="CreateCourse" asp-controller="Course">
+			<div class="col-md-6">
+				<label for="form-input-course-name" class="form-label">@Html.DisplayNameFor(model => model.Name)</label>
+				<input type="text" asp-for="Name" class="form-control" id="form-input-course-name" placeholder="@Html.DisplayNameFor(model => model.Name)" required>
+				<span asp-validation-for="Name"></span>
+			</div>
+			
+			<div class="col-md-6">
+				<label for="form-input-course-code" class="form-label">@Html.DisplayNameFor(model => model.Code)</label>
+				<input type="text" asp-for="Code" class="form-control" id="form-input-course-code" placeholder="@Html.DisplayNameFor(model => model.Code)" required>
+				<span asp-validation-for="Code"></span>
+			</div>
+
+			<div class="col-12">
+				<label for="form-input-course-subject" class="form-label">@Html.DisplayNameFor(model => model.Subject)</label>
+				<input type="text" asp-for="Subject" class="form-control" id="form-input-course-subject" placeholder="@Html.DisplayNameFor(model => model.Subject)" required>
+				<span asp-validation-for="Subject"></span>
+			</div>
+
+			<div class="col-md-6">
+				<label for="form-input-course-startdate" class="form-label">@Html.DisplayNameFor(model => model.StartDate)</label>
+				<input type="datetime-local" asp-for="StartDate" class="form-control" id="form-input-course-startdate" placeholder="@Html.DisplayNameFor(model => model.StartDate)" required>
+				<span asp-validation-for="StartDate"></span>
+			</div>
+
+			<div class="col-md-6">
+				<label for="form-input-course-enddate" class="form-label">@Html.DisplayNameFor(model => model.EndDate)</label>
+				<input type="datetime-local" asp-for="EndDate" class="form-control" id="form-input-course-enddate" placeholder="@Html.DisplayNameFor(model => model.EndDate)" required>
+				<span asp-validation-for="EndDate"></span>
+			</div>
+
+			<div class="col-12">
+				<button type="submit" class="btn btn-primary">Tạo Khóa Học</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,132 @@
+﻿@model LMS_SASS.Models.UserModel
+
+@{
+    ViewData["Title"] = "Add An Account";
+}
+
+<div id="add-new-account-wrapper">
+    <h2>Thêm mới tài khoản</h2>
+
+    <form asp-action="AddAnAccount" asp-controller="Admin" method="post">
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-at"></i>
+            </span>
+
+            <div class="form-floating">
+                <input type="text" asp-for="Username" id="form-input-username" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Username)" required>
+                <label for="form-input-username">@Html.DisplayNameFor(model => model.Username)</label>
+            </div>
+
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-key"></i>
+            </span>
+
+            <div class="form-floating">
+                <input type="password" asp-for="Password" id="form-input-password" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Password)" required>
+                <label for="form-input-password">@Html.DisplayNameFor(model => model.Password)</label>
+            </div>
+
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-signature"></i>
+            </span>
+
+            <div class="form-floating">
+                <input type="text" asp-for="Name" id="form-input-name" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Name)" required>
+                <label for="form-input-name">@Html.DisplayNameFor(model => model.Name)</label>
+            </div>
+
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-calendar-days"></i>
+            </span>
+
+            <div class="form-floating">
+                <input type="date" asp-for="DOB" id="form-input-dob" class="form-control" placeholder="@Html.DisplayNameFor(model => model.DOB)" required>
+                <label for="form-input-dob">@Html.DisplayNameFor(model => model.DOB)</label>
+            </div>
+
+            <span asp-validation-for="DOB" class="text-danger"></span>
+        </div>
+
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-phone"></i>
+            </span>
+
+            <div class="form-floating">
+                <input type="tel" asp-for="Phone" id="form-input-phone" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Phone)" required>
+                <label for="form-input-phone">@Html.DisplayNameFor(model => model.Phone)</label>
+            </div>
+
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-envelope"></i>
+            </span>
+
+            <div class="form-floating">
+                <input type="email" asp-for="Email" id="form-input-email" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Email)" required>
+                <label for="form-input-email">@Html.DisplayNameFor(model => model.Email)</label>
+            </div>
+
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-location-dot"></i>
+            </span>
+
+            <div class="form-floating">
+                <input type="text" asp-for="Address" id="form-input-address" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Address)" required>
+                <label for="form-input-address">@Html.DisplayNameFor(model => model.Address)</label>
+            </div>
+
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="input-group has-validation mb-3">
+            <span class="input-group-text">
+                <i class="fa-solid fa-user-tag"></i>
+            </span>
+
+            <div class="form-floating">
+                <select asp-for="Role" id="form-input-role" class="form-control" required>
+                    <option value="">Chọn vai trò</option>
+                    @foreach (var role in ViewBag.Roles)
+                    {
+                        <option value="@role">@role</option>
+                    }
+                </select>
+                <label for="form-input-role">@Html.DisplayNameFor(model => model.Role)</label>
+            </div>
+
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+        <div class="form-actions mt-5">
+            <button type="button" class="btn btn-link btn-back">Quay lại</button>
+            <button type="submit" class="btn btn-primary">Tạo tài khoản</button>
+        </div>
+    </form>
+</div>
+<script>
+    const btnBack = document.querySelector(".btn-back");
+    btnBack.addEventListener("click",()=>{
+        window.history.back()
+    })
+</script>

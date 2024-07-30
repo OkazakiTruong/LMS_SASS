@@ -1,0 +1,37 @@
+@{
+	UserModel user = ViewBag.User;
+	CourseModel course = ViewBag.Course;
+}
+
+<div class="course-header">
+	<div class="actions">
+		@if (user.Role == UserModel.ROLE_TEACHER || user.Role == UserModel.ROLE_ADMIN) {
+			<a asp-action="EditCourseView" asp-controller="Course" asp-route-id="@course.Id" class="btn btn-outline-light">
+				<i class="fa-solid fa-pencil"></i>
+				<span>Chỉnh Sửa</span>
+			</a>
+		}
+	</div>
+
+	<div class="details">
+		<div class="info">
+			<h2 class="name">@course.Name</h2>
+			<div class="code">@course.Code</div>
+		</div>
+
+		<div class="invite-code">
+			<label>Mã Tham Gia</label>
+			<div>@course.InviteCode</div>
+		</div>
+	</div>
+</div>
+
+<ul class="nav nav-pills course-nav">
+	<li class="nav-item">
+		<a class="nav-link" asp-active-route asp-action="ViewCourse" asp-controller="Course" asp-route-id="@course.Id">Nội Dung</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" asp-active-route asp-action="Peoples" asp-controller="Course" asp-route-id="@course.Id">Mọi Người</a>
+	</li>
+</ul>

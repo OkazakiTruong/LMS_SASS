@@ -1,0 +1,70 @@
+@model CourseModel
+
+@{
+  ViewData["Title"] = Model.Name;
+  ViewBag.Course = Model;
+  UserModel user = ViewBag.User;
+}
+
+<div class="container">
+  @{
+    await Html.RenderPartialAsync("Header");
+  }
+
+  <div class="page-content">
+    <div class="actions d-flex w-100 justify-content-end">
+      @if (user.Role == UserModel.ROLE_TEACHER || user.Role == UserModel.ROLE_ADMIN)
+      {
+        <a href="#" id="addActivityBtn" class="btn btn-outline btn-outline-secondary">
+          <i class="fa-solid fa-plus"></i>
+          <span>Thêm hoạt động</span>
+        </a>
+      }
+    </div>
+    <div id="list-activities">
+    </div>
+  </div>
+  <input type="hidden" name="CourseId" id="form-input-course-id" value="@ViewBag.Course.Id" required />
+
+  <div class="modal fade" id="activityModal" tabindex="-1" aria-labelledby="activityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="activityModalLabel">Chọn Loại Hoạt động</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-4">
+              <a asp-action="CreateMeetingView" asp-controller="Activity" asp-route-courseId="@Model.Id"
+                class="btn btn-outline btn-outline-secondary width-100 d-flex justify-content-center">
+                <i class="fa-solid fa-video"></i>
+                <span>Meeting</span>
+              </a>
+            </div>
+            <div class="col-4">
+              <a asp-action="CreateAssignmentView" asp-route-courseId="@Model.Id"
+                class="btn btn-outline btn-outline-secondary width-100 d-flex justify-content-center"
+                asp-controller="Activity">
+                <i class="fa-regular fa-file"></i>
+                <span>Assignment</span>
+              </a>
+            </div>
+            <div class="col-4">
+              <a asp-action="CreateActivity"
+                class="btn btn-outline btn-outline-secondary width-100 d-flex justify-content-center"
+                asp-controller="Activity">
+                <i class="fa-regular fa-circle-check"></i>
+                <span>Quiz</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <!-- Add additional buttons if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="~/js/courseActivity.js"></script>
